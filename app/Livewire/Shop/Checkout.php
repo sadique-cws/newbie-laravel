@@ -34,7 +34,7 @@ class Checkout extends Component
     {
         $this->loadCart();
         $this->loadAddresses();
-        if($this->itemsTotal === 0){
+        if ($this->itemsTotal === 0) {
             return redirect()->route('home');
         }
 
@@ -186,8 +186,8 @@ class Checkout extends Component
     private function generateOrderNumber()
     {
         do {
-            $orderNumber = 'NB' . rand(100000, 999999);
-        } while (\App\Models\Order::where('order_number', $orderNumber)->exists());
+            $orderNumber = 'NB' . rand(10000000, 99999999);
+        } while (Order::where('order_number', $orderNumber)->exists());
 
         return $orderNumber;
     }
