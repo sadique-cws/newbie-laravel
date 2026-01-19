@@ -1,5 +1,10 @@
 <?php
 
+use App\Livewire\App\UserAddress;
+use App\Livewire\App\UserDashboard;
+use App\Livewire\App\UserMyOrder;
+use App\Livewire\App\UserProfile;
+use App\Livewire\App\UserWishlist;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Shop\Home;
 use App\Livewire\Admin\Products\Index as ProductIndex;
@@ -12,15 +17,24 @@ use App\Http\Middleware\EnsureUserIsRetailer;
 
 Route::get('/', Home::class)->name('home');
 Route::get('/catalog', \App\Livewire\Shop\Catalog::class)->name('catalog');
+Route::get('/checkout', \App\Livewire\Shop\Checkout::class)->name('checkout');
+Route::get('/order-success/{order}', \App\Livewire\Shop\OrderSuccess::class)->name('ordersuccess');
 Route::get('/product/{product}', \App\Livewire\Shop\ProductShow::class)->name('product.show');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+// Route::view('dashboard', 'dashboard')
+//     ->middleware(['auth', 'verified'])
+//     ->name('dashboard');
+Route::middleware(['auth'])->group(function () {
+    Route::get('dashboard', UserDashboard::class)->name('dashboard');
+    Route::get('my-orders', UserMyOrder::class)->name('myorders');
+    Route::get('my-addresses', UserAddress::class)->name('myaddresses');
+    Route::get('profile', UserProfile::class)->name('profile');
+    Route::get('wishlist', UserWishlist::class)->name('wishlist');
 
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
+});
+// Route::view('profile', 'profile')
+//     ->middleware(['auth'])
+//     ->name('profile');
 
 Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])
     ->prefix('admin')

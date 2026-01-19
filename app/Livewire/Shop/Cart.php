@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Shop;
 
+use App\Models\OrderItem;
 use App\Models\ProductVariant;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -17,6 +19,9 @@ class Cart extends Component
     {
         $this->cart = Session::get('cart', []);
         $this->calculateTotal();
+        // if (auth()->check()) {
+        //     $this->mergeSessionCart();
+        // }
     }
 
     #[On('open-cart')]
@@ -54,7 +59,28 @@ class Cart extends Component
 
         $this->dispatch('cart-updated', count($this->cart));
     }
+    public function mergeSessionCart()
+    {
+        // dd($this->cart);
+        $sessionCart = $this->cart;
+        if (!empty($sessionCart)) {
+            foreach ($sessionCart as $productId => $item) {
+                // dd($item);
+                $variant = ProductVariant::with('product')->find($productId);
+                $cartItem = OrderItem::firstOrCreate([
+                    'user_id' => Auth::id(),
+                    'product_id' => $productId,
+                    'variant_id' => $variant->id,
+                    'variant_name' => "fchgvhjbk",
+                    'product_name' => $variant->product->name,
+                    'quantity' => $item['quantity'],
+                    'price' => $item['price'],
+                    'total' => $item['quantity'] * $item['price'],
 
+                ]);
+            }
+        }
+    }
     public function removeFromCart($variantId)
     {
         if (isset($this->cart[$variantId])) {
@@ -77,7 +103,10 @@ class Cart extends Component
                 $this->calculateTotal();
             }
         }
+
+        $this->dispatch('cart-updated');
     }
+
 
     public function calculateTotal()
     {
