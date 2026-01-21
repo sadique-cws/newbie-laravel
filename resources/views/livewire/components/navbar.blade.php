@@ -3,7 +3,7 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('home') }}" class="flex items-center gap-2">
+                    <a wire:navigate href="{{ route('home') }}" class="flex items-center gap-2">
                         <img src="{{ asset('logo.png') }}" alt="Newbie Service" class="h-10 w-auto">
                         <span class="hidden md:block text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">Newbie</span>
                     </a>

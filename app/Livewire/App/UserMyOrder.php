@@ -2,6 +2,8 @@
 
 namespace App\Livewire\App;
 
+use App\Models\Order;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 #[Layout('layouts.app')]
@@ -9,6 +11,7 @@ class UserMyOrder extends Component
 {
     public function render()
     {
-        return view('livewire.app.user-my-order');
+        $orders = Order::where('user_id', Auth::id())->get();
+        return view('livewire.app.user-my-order',compact('orders'));
     }
 }

@@ -4,6 +4,8 @@ namespace App\Livewire\Shop;
 
 use App\Enums\ProductCategory;
 use App\Models\Product;
+use App\Models\Wishlist;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -13,7 +15,6 @@ use Livewire\Component;
 class Home extends Component
 {
     public $selectedCategory = null;
-
     public function selectCategory($category)
     {
         $this->selectedCategory = $category;
@@ -21,9 +22,11 @@ class Home extends Component
 
     public function render()
     {
-        $products = Product::with(['variants' => function ($query) {
-            $query->where('is_active', true)->orderBy('retail_price');
-        }])
+        $products = Product::with([
+            'variants' => function ($query) {
+                $query->where('is_active', true)->orderBy('retail_price');
+            }
+        ])
             ->where('is_active', true)
             ->when($this->selectedCategory, function ($query) {
                 $query->where('category', $this->selectedCategory);
