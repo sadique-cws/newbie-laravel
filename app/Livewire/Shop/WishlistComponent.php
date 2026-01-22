@@ -8,37 +8,45 @@ use Livewire\Component;
 
 class WishlistComponent extends Component
 {
-    public $isUserLiked = false;
-    public $id = false;
-    public function mount()
+    public $productId;
+    public $isWishlisted = false;
+
+    public function mount($products)
     {
-        $isLiked = Wishlist::where('user_id', Auth::id())->where('product_id', $this->id)->first();
-        if ($isLiked) {
-            $this->isUserLiked = true;
-        } else {
-            $this->isUserLiked = false;
+        $this->productId = $products;
+
+        if (Auth::check()) {
+            $this->isWishlisted = Wishlist::where('user_id', Auth::id())
+                ->where('product_id', $this->productId)
+                ->exists();
         }
     }
-    public function toggleWishlist()
+
+    public function wishlist()
     {
-        if(!Auth::check()){
-            return redirect()->route('login');
+        if (!Auth::check()) {
+            return;
         }
-        $isLiked = Wishlist::where('user_id', Auth::id())->where('product_id', $this->id)->first();
-        $this->isUserLiked = $isLiked;
-        if ($isLiked) {
-            $isLiked->delete();
-            $this->isUserLiked = false;
+
+        $existing = Wishlist::where('user_id', Auth::id())
+            ->where('product_id', $this->productId)
+            ->first();
+
+        if ($existing) {
+            $existing->delete();
+            $this->isWishlisted = false;
         } else {
             Wishlist::create([
                 'user_id' => Auth::id(),
-                'product_id' => $this->id
+                'product_id' => $this->productId,
             ]);
-            $this->isUserLiked = true;
+            $this->isWishlisted = true;
         }
     }
+
     public function render()
     {
+
         return view('livewire.shop.wishlist-component');
     }
 }

@@ -118,7 +118,7 @@
                                 class="absolute top-0 left-0 bg-blue-600 text-white text-[10px] font-bold px-2 py-1 rounded-br-lg z-10">
                                 13% OFF
                             </div>
-                            <livewire:shop.wishlist-component :id="$product->id" />
+                            <livewire:shop.wishlist-component :products="$product->id" wire:key="wishlist-{{ $product->id }}" />
                             @if($product->variants->first()->image_url)
                                 <img src="{{ $product->variants->first()->image_url }}" alt="{{ $product->name }}"
                                     class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
@@ -140,14 +140,12 @@
                                 class="block group-hover:text-purple-600 transition-colors">
                                 <h3
                                     class="text-sm font-bold text-gray-900 dark:text-white leading-snug mb-2 line-clamp-2 min-h-[2.5em]">
-                                    {{ $product->name }}</h3>
+                                    {{ $product->name }}
+                                </h3>
                             </a>
 
-                            <div x-data="{ 
-                                selectedVariantId: '{{ $product->variants->first()->id }}',
-                                price: '{{ $product->variants->first()->retail_price }}',
-                                unit: '{{ $product->variants->first()->unit_size }}'
-                            }" class="mt-auto">
+                            <div x-data="{ selectedVariantId: '{{ $product->variants->first()->id }}',price: '{{ $product->variants->first()->retail_price }}',unit: '{{ $product->variants->first()->unit_size }}' }"
+                                class="mt-auto">
 
                                 <div
                                     class="flex items-center justify-between mt-3 pt-3 border-t border-gray-100 dark:border-gray-700/50">

@@ -111,7 +111,7 @@
                            rounded-lg bg-gray-50 dark:bg-gray-700/50 overflow-hidden">
 
                                             <!-- ===== WISHLIST BUTTON ===== -->
-                                             <livewire:shop.wishlist-component :id="$product->id" />
+                                             <livewire:shop.wishlist-component :products="$product->id" wire:key="wishlist-{{ $product->id }}" />
                                             
 
                                             <!-- ===== IMAGE ===== -->
