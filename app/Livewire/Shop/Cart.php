@@ -44,6 +44,7 @@ class Cart extends Component
         } else {
             $this->cart[$variantId] = [
                 'id' => $variant->id,
+                'product_id' => $variant->product->id,
                 'name' => $variant->product->name . ' - ' . $variant->variant_name,
                 'price' => $variant->retail_price,
                 'unit_size' => $variant->unit_size,

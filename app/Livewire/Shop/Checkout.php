@@ -4,6 +4,7 @@ namespace App\Livewire\Shop;
 
 use App\Models\Address;
 use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Layout;
@@ -32,6 +33,7 @@ class Checkout extends Component
 
     public function mount()
     {
+        // dd(session('cart'));
         $this->loadCart();
         $this->loadAddresses();
         if ($this->itemsTotal === 0) {
@@ -167,6 +169,9 @@ class Checkout extends Component
             return;
         }
 
+        $address = Address::findOrFail($this->selectedAddress);
+
+        // 1️⃣ Create Order
         $order = Order::create([
             'user_id' => Auth::id(),
             'address_id' => $this->selectedAddress,
@@ -175,14 +180,36 @@ class Checkout extends Component
             'discount' => 0,
             'delivery_fee' => $this->deliveryCharge,
             'order_number' => $this->generateOrderNumber(),
+            'address' => $address->toArray(), // IMPORTANT
         ]);
 
+        // 2️⃣ Get cart from session / livewire
+        $cartItems = $this->cart;
+        // or: session('cart')
+
+        // 3️⃣ Create Order Items
+        foreach ($cartItems as $item) {
+            OrderItem::create([
+                'order_id' => $order->id,
+                'product_id' => $item['product_id'],
+                'variant_id' => $item['id'],
+                'product_name' => $item['name'],
+                'variant_name' => $item['unit_size'],
+                'quantity' => $item['quantity'],
+                'price' => $item['price'],
+                'total' => $item['price'] * $item['quantity'],
+            ]);
+        }
+
+        // 4️⃣ Clear Cart
         session()->forget('cart');
 
+        // 5️⃣ Redirect
         return redirect()->route('ordersuccess', [
             'order' => $order->order_number
         ]);
     }
+
     private function generateOrderNumber()
     {
         do {

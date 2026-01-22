@@ -28,6 +28,8 @@ class Order extends Model
         'subtotal' => 'decimal:2',
         'discount' => 'decimal:2',
         'delivery_fee' => 'decimal:2',
+        'address' => 'array',
+
     ];
 
     public function user(): BelongsTo

@@ -11,7 +11,7 @@ class UserMyOrder extends Component
 {
     public function render()
     {
-        $orders = Order::where('user_id', Auth::id())->get();
+        $orders = Order::where('user_id', Auth::id())->latest()->get();
         return view('livewire.app.user-my-order',compact('orders'));
     }
 }
