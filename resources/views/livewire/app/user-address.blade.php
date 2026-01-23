@@ -3,7 +3,7 @@
 
         {{-- SIDEBAR --}}
         @include('components.app.user-sidebar')
-
+ 
         {{-- MAIN --}}
         <main class="flex-1 space-y-6">
 

@@ -8,7 +8,7 @@
         <nav class="space-y-1 text-sm font-medium flex-1">
 
             <!-- Dashboard -->
-            <a href="{{ route('dashboard') }}"
+            <a wire:navigate href="{{ route('dashboard') }}"
                 class="group flex items-center gap-3 px-3 py-2.5 rounded-xl transition
                {{ request()->routeIs('dashboard') ? 'bg-blue-50 dark:bg-blue-900/40' : 'hover:bg-gray-100 dark:hover:bg-gray-700' }}">
                 <span class="w-9 h-9 rounded-lg flex items-center justify-center transition
@@ -29,7 +29,7 @@
             </a>
 
             <!-- Orders -->
-            <a href="{{ route('myorders') }}"
+            <a wire:navigate href="{{ route('myorders') }}"
                 class="group flex items-center gap-3 px-3 py-2.5 rounded-xl transition
                {{ request()->routeIs('myorders*') ? 'bg-indigo-50 dark:bg-indigo-900/40' : 'hover:bg-gray-100 dark:hover:bg-gray-700' }}">
                 <span class="w-9 h-9 rounded-lg flex items-center justify-center transition
@@ -50,7 +50,7 @@
             </a>
 
             <!-- Wishlist -->
-            <a href="{{ route('wishlist') }}"
+            <a wire:navigate href="{{ route('wishlist') }}"
                 class="group flex items-center gap-3 px-3 py-2.5 rounded-xl transition
                {{ request()->routeIs('wishlist*') ? 'bg-pink-50 dark:bg-pink-900/40' : 'hover:bg-gray-100 dark:hover:bg-gray-700' }}">
                 <span class="w-9 h-9 rounded-lg flex items-center justify-center transition
@@ -71,7 +71,7 @@
             </a>
 
             <!-- Addresses -->
-            <a href="{{ route('myaddresses') }}"
+            <a wire:navigate href="{{ route('myaddresses') }}"
                 class="group flex items-center gap-3 px-3 py-2.5 rounded-xl transition
                {{ request()->routeIs('myaddresses*') ? 'bg-blue-50 dark:bg-blue-900/40' : 'hover:bg-gray-100 dark:hover:bg-gray-700' }}">
                 <span class="w-9 h-9 rounded-lg flex items-center justify-center transition
@@ -90,9 +90,30 @@
                     Addresses
                 </span>
             </a>
+            <!-- Addresses -->
+            <a wire:navigate href="{{ route('applytoretailer') }}"
+                class="group flex items-center gap-3 px-3 py-2.5 rounded-xl transition
+               {{ request()->routeIs('applytoretailer*') ? 'bg-blue-50 dark:bg-blue-900/40' : 'hover:bg-gray-100 dark:hover:bg-gray-700' }}">
+                <span class="w-9 h-9 rounded-lg flex items-center justify-center transition
+                    {{ request()->routeIs('applytoretailer*')
+    ? 'bg-blue-100 dark:bg-blue-900/60'
+    : 'bg-gray-100 dark:bg-gray-700 group-hover:bg-blue-100 dark:group-hover:bg-blue-900/40' }}">
+                    <i class="fa-solid fa-id-card
+                        {{ request()->routeIs('applytoretailer*')
+    ? 'text-blue-600 dark:text-blue-400'
+    : 'text-gray-500 group-hover:text-blue-600' }}">
+                    </i>
+                </span>
+                <span class="{{ request()->routeIs('applytoretailer*')
+    ? 'font-semibold text-blue-600 dark:text-blue-400'
+    : 'text-gray-700 dark:text-gray-200' }}">
+                    Kyc Document
+
+                </span>
+            </a>
 
             <!-- Profile -->
-            <a href="{{ route('profile') }}"
+            <a wire:navigate href="{{ route('profile') }}"
                 class="group flex items-center gap-3 px-3 py-2.5 rounded-xl transition
                {{ request()->routeIs('profile*') ? 'bg-emerald-50 dark:bg-emerald-900/40' : 'hover:bg-gray-100 dark:hover:bg-gray-700' }}">
                 <span class="w-9 h-9 rounded-lg flex items-center justify-center transition

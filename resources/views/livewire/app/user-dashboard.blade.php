@@ -56,7 +56,20 @@
                         View all
                     </a>
                 </div>
+                @if ($recentOrders->count() == 0)
 
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl p-10 text-center border dark:border-gray-700">
+                        <i class="fa-solid fa-cart-arrow-down text-4xl text-gray-300 mb-4"></i>
+                        <h2 class="font-semibold text-lg">You have not order yet</h2>
+                        <p class="text-sm text-gray-500 mt-1">
+                            Buy product and come back later
+                        </p>
+                        <a href="{{ route('catalog') }}" class="inline-block mt-4 px-5 py-2 rounded-lg
+                                        bg-blue-600 text-white text-sm font-semibold">
+                            Browse Products
+                        </a>
+                    </div>
+                @endif
                 <div class="space-y-3">
                     @foreach ($recentOrders as $recentOrder)
                         <div class="flex justify-between items-center border dark:border-gray-700 rounded-xl p-4">
@@ -68,7 +81,8 @@
                                 <div class="text-right">
                                     <p class="font-semibold text-sm">₹{{ $recentOrder->total_amount }}</p>
                                 </div>
-                                <div class="text-xs px-3 py-1 mt-3 rounded-full bg-orange-100 text-orange-600 font-semibold">
+                                <div
+                                    class="text-xs px-3 py-1 mt-3 rounded-full bg-orange-100 text-orange-600 font-semibold">
                                     Pending
                                 </div>
                             </div>

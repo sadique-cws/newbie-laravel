@@ -1,8 +1,12 @@
 <?php
 
+use App\Livewire\Admin\ReviewApplyRetailer;
+use App\Livewire\App\ApplyToRetailer;
+use App\Livewire\App\UserAccounts;
 use App\Livewire\App\UserAddress;
 use App\Livewire\App\UserDashboard;
 use App\Livewire\App\UserMyOrder;
+use App\Livewire\App\UserOrderView;
 use App\Livewire\App\UserProfile;
 use App\Livewire\App\UserWishlist;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +34,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('my-addresses', UserAddress::class)->name('myaddresses');
     Route::get('profile', UserProfile::class)->name('profile');
     Route::get('wishlist', UserWishlist::class)->name('wishlist');
+    Route::get('order-view/{order}', UserOrderView::class)->name('orderview');
+    Route::get('apply-to-retailer', ApplyToRetailer::class)->name('applytoretailer');
+    Route::get('accounts', UserAccounts::class)->name('accounts');
 
 });
 // Route::view('profile', 'profile')
@@ -47,6 +54,7 @@ Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])
 
         Route::get('/orders', \App\Livewire\Admin\Orders\Index::class)->name('orders.index');
         Route::get('/orders/{order}', \App\Livewire\Admin\Orders\Show::class)->name('orders.show');
+        Route::get('/review-retailer', ReviewApplyRetailer::class)->name('reviewretailer');
     });
 
 Route::middleware(['auth', 'verified', EnsureUserIsRetailer::class])

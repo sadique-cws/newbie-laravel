@@ -26,6 +26,12 @@ class User extends Authenticatable
         'is_active',
         'avatar_url',
         'last_login_at',
+        'aadhar_card',
+        'aadhar_card_front',
+        'aadhar_card_back',
+        'apply_status',
+        'rejection_reason',
+        'is_verified',
     ];
 
     protected $hidden = [

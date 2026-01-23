@@ -15,10 +15,23 @@
                     Track and manage your orders
                 </p>
             </div>
-
+            @if ($orders->count() == 0)
+            
+                <div class="bg-white dark:bg-gray-800 rounded-2xl p-10 text-center border dark:border-gray-700">
+                    <i class="fa-solid fa-cart-arrow-down text-4xl text-gray-300 mb-4"></i>
+                    <h2 class="font-semibold text-lg">You have not order yet</h2>
+                    <p class="text-sm text-gray-500 mt-1">
+                        Buy product and come back later
+                    </p>
+                    <a href="{{ route('catalog') }}" class="inline-block mt-4 px-5 py-2 rounded-lg
+                            bg-blue-600 text-white text-sm font-semibold">
+                        Browse Products
+                    </a>
+                </div>
+            @endif
             <!-- ===== ORDERS LIST ===== -->
             <div class="space-y-4">
-
+            
                 @foreach ($orders as $order)
                             @php
                                 $address = json_decode($order->shipping_address, true);
@@ -97,7 +110,7 @@
                                         ₹{{ number_format($order->total_amount) }}
                                     </p>
 
-                                    <a href=""
+                                    <a wire:navigate href="{{ route('orderview',$order->order_number) }}"
                                         class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:underline">
                                         View Details
                                         <i class="fa-solid fa-arrow-right"></i>
