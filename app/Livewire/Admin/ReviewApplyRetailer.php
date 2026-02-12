@@ -14,6 +14,7 @@ class ReviewApplyRetailer extends Component
     public $selectedUser;
     public $rejectReason = '';
     public $showModal = false;
+    public $status = 'PENDING';
 
     public function openModal($userId)
     {
@@ -57,7 +58,7 @@ class ReviewApplyRetailer extends Component
     public function render()
     {
         return view('livewire.admin.review-apply-retailer', [
-            'requests' => User::whereIn('apply_status', ['SUBMITTED', 'PENDING'])->get(),
+            'requests' => User::where('apply_status', $this->status)->get(),
         ]);
     }
 }

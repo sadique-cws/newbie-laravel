@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Admin\AdminCustomer;
 use App\Livewire\Admin\ReviewApplyRetailer;
 use App\Livewire\App\ApplyToRetailer;
 use App\Livewire\App\UserAccounts;
@@ -55,6 +56,7 @@ Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])
         Route::get('/orders', \App\Livewire\Admin\Orders\Index::class)->name('orders.index');
         Route::get('/orders/{order}', \App\Livewire\Admin\Orders\Show::class)->name('orders.show');
         Route::get('/review-retailer', ReviewApplyRetailer::class)->name('reviewretailer');
+        Route::get('/customers', AdminCustomer::class)->name('customers');
     });
 
 Route::middleware(['auth', 'verified', EnsureUserIsRetailer::class])

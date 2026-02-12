@@ -1,13 +1,22 @@
 <div class="space-y-6">
 
     <!-- PAGE HEADER -->
-    <div>
-        <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
-            Retailer KYC Requests
-        </h1>
-        <p class="text-sm text-gray-500 dark:text-gray-400">
-            Review and verify retailer applications
-        </p>
+    <div class="flex justify-between">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
+                Retailer KYC Requests
+            </h1>
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+                Review and verify retailer applications
+            </p>
+        </div>
+        <div>
+            <select wire:model.live="status"
+                class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 py-2 pl-3 pr-8 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500">
+                <option value="PENDING">Pending</option>
+                <option value="VERIFIED">Approved</option>
+            </select>
+        </div>
     </div>
 
     <!-- REQUEST TABLE -->
